@@ -29,7 +29,7 @@ func parse(log string) []string {
 
 		contents := strings.Split(line, ",")
 
-		for i := len(contents) - 1; i >= 3; i-- {
+		for i := len(contents) - 1; i >= len(contents)-1; i-- {
 			ipv4_match := ipv4_regex.FindStringSubmatch(contents[i])
 			if ipv4_match != nil {
 				ip_list = append(ip_list, ipv4_match[0])
@@ -40,7 +40,6 @@ func parse(log string) []string {
 				ip_list = append(ip_list, ipv6_match[0])
 			}
 		}
-
 	}
 	return ip_list
 }
