@@ -67,7 +67,6 @@ func rank(ip_list []string) {
 			if v != ip_addresses[i+1] {
 				if ip_addresses[i] != "" {
 					copy_arr = append(copy_arr, v)
-
 				}
 			}
 		}
@@ -88,7 +87,6 @@ func rank(ip_list []string) {
 				counter++
 			}
 		}
-
 		if _, is_tied := ranking[counter]; is_tied {
 			entry := strconv.Itoa(counter) + "\t" + " " + ip
 			tie = append(tie, entry)
