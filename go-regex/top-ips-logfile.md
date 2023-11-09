@@ -42,7 +42,7 @@ Evaluating each text element (brute force):
 
 Processed  2699299  log entries in  8.266018625s
 
-Evaluating each text element starting at the last element:
+Evaluating only the last text element:
 
 Processed  2699299  log entries in  3.136688s
 
