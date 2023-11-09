@@ -30,4 +30,19 @@ These IP addresses have the exact same count value:
 
 1	 172.16.21.40
 
+### Performance Improvement: 
+
+The first loop splits the log file by line, and the inner loop splits each line by the delimeter. If you know
+that your IP address is always going to be in a certain position (but not the exact position), e.g., it will always be 
+the last entry, you can improve the performance. 
+
+This test was run using a 100MB log file:
+
+Evaluating each text element (brute force):
+
+Processed  2699299  log entries in  8.266018625s
+
+Evaluating each text element starting at the last element:
+
+Processed  2699299  log entries in  3.136688s
 

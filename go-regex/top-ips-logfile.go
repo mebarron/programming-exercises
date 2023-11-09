@@ -4,23 +4,32 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"regexp"
 	"sort"
 	"strconv"
 	"strings"
+	"time"
 )
+
+var elapsed time.Time
+var proc_counter int
 
 // Parse the IP addresses from the log file entries
 func parse(log string) []string {
+	elapsed = time.Now()
+
 	ipv4_regex := regexp.MustCompile(`^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$`)
 	ipv6_regex := regexp.MustCompile(`^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$`)
 
 	var ip_list []string
 
 	for _, line := range strings.Split(log, "\n") {
+		proc_counter++
+
 		contents := strings.Split(line, ",")
 
-		for i, _ := range contents {
+		for i := len(contents) - 1; i >= 3; i-- {
 			ipv4_match := ipv4_regex.FindStringSubmatch(contents[i])
 			if ipv4_match != nil {
 				ip_list = append(ip_list, ipv4_match[0])
@@ -109,13 +118,18 @@ func rank(ip_list []string) {
 	for _, v := range tie {
 		fmt.Println(v)
 	}
+
+	fmt.Println("Processed ", proc_counter, " log entries in ", time.Now().Sub(elapsed).String())
 }
 
 func main() {
 	// Dummy data, e.g., what you might expect in a web server log file
-	data := "2309425435,GET,http://host,172.16.21.40\n2309425435,GET,http://host,192.168.0.2\n2309425435,GET,http://host,192.168.0.2\n2309425435,GET,http://host,10.1.1.1\n2309425435,GET,http://host,10.1.1.1\n2309425435,GET,http://host,10.1.1.1\n2309425435,GET,http://host,10.1.1.1\n2309425435,GET,http://host,10.1.1.1\n2309425435,GET,http://host,10.1.1.2\n2309425435,GET,http://host,10.1.1.3\n2309425435,GET,http://host,10.1.1.3\n2309425435,GET,http://host,10.1.1.3\n2309425435,GET,http://host,10.1.1.3\n2309425435,GET,http://host,10.1.1.3\n2309425435,GET,http://host,10.1.1.3\n2309425435,GET,http://host,10.1.1.3"
+	data, err := ioutil.ReadFile("logfile.txt")
+	if err != nil {
+		panic(err)
+	}
 
-	ip_addresses := parse(data)
+	ip_addresses := parse(string(data))
 
 	rank(ip_addresses)
 }
