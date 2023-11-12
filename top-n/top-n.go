@@ -56,13 +56,11 @@ func rank(values map[string]int, n int) {
 			if index == 0 {
 				break
 			}
-
 			j = index
 			fmt.Println(rank, " ", keys[j], " ", values[keys[j]])
 			index--
 			rank--
 		}
-
 		if rank == len(keys) {
 			break
 		}
