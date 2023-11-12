@@ -48,7 +48,7 @@ func rank(values map[string]int, n int) {
 		return values[keys[i]] < values[keys[j]]
 	})
 
-	rank := n
+	rank := 1
 	index := len(values) - 1
 
 	for i := n; i > 0; i-- {
@@ -59,7 +59,7 @@ func rank(values map[string]int, n int) {
 			j = index
 			fmt.Println(rank, " ", keys[j], " ", values[keys[j]])
 			index--
-			rank--
+			rank++
 		}
 		if rank == len(keys) {
 			break
