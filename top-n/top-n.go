@@ -36,6 +36,7 @@ func parse(data string, delimeter string, index int) map[string]int {
 	return values
 }
 
+// Sort and rank top n values in descending order
 func rank(values map[string]int, n int) {
 	var keys []string
 
