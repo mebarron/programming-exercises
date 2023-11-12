@@ -28,7 +28,7 @@ func parse(data string, delimeter string, index int) map[string]int {
 		}
 
 		if _, exists := values[contents[index]]; exists {
-			values[contents[index]] = values[contents[index]] + 1
+			values[contents[index]] += 1
 		} else {
 			values[contents[index]] = 1
 		}
