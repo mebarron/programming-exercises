@@ -53,7 +53,7 @@ func rank(values map[string]int, n int) {
 
 	for i := n; i > 0; i-- {
 		for j, _ := range keys {
-			if index == 0 {
+			if index == len(values)-n-1 {
 				break
 			}
 			j = index
