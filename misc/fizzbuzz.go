@@ -5,14 +5,14 @@ import (
 )
 
 func fizzbuzz(n int32) {
-    i := n % 3 
-    j := n % 5 
+	i := n % 3
+	j := n % 5
 
 	var str string
 
 	if i == 0 {
 		str = "fizz"
-	} 
+	}
 	if j == 0 {
 		str = str + "buzz"
 	}
@@ -25,7 +25,7 @@ func fizzbuzz(n int32) {
 }
 
 func main() {
-	for i:=1;i<=50;i++ {
+	for i := 1; i <= 50; i++ {
 		fizzbuzz(int32(i))
 	}
 }
