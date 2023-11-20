@@ -7,7 +7,7 @@ import (
 	"sort"
 )
 
-// Combine and dedup two arrays
+// Combine and dedup two arrays (this example also removes any zeros)
 func dedup(a0 []int, a1 []int) []int {
 	var a2 []int
 
