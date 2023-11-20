@@ -41,13 +41,8 @@ func dedup(a0 []int, a1 []int) []int {
 func remove_element(a []int, index int) []int {
 	var new_arr []int
 
-	for i, v := range a {
-		if i == index {
-			continue
-		} else {
-			new_arr = append(new_arr, v)
-		}
-	}
+	new_arr = a[:index]
+	new_arr = append(new_arr, a[index+1:]...)
 
 	return new_arr
 }
@@ -110,4 +105,5 @@ func main() {
 	fmt.Println("Sum: ", sm)
 	fmt.Println("Min:", min)
 	fmt.Println("Max:", max)
+	fmt.Println("Remove 36", remove_element(a2, (len(a2)-1)))
 }
