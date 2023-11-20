@@ -27,13 +27,13 @@ func match(pattern string, s string) bool {
 	result, err := regexp.MatchString(pattern, s)
 
 	if err != nil {
-		log.Panic("ERROR_", err)
+		log.Panic(err)
 	}
 
 	r, err := regexp.Compile(pattern)
 
 	if err != nil {
-		log.Panic("ERROR_", err)
+		log.Panic(err)
 	}
 
 	fmt.Println("Pattern:", r)
