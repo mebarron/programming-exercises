@@ -16,28 +16,17 @@ func dedup(a0 []int, a1 []int) []int {
 
 	sort.Ints(a2)
 
-	for i, v := range a2 {
-		var n int
-		if i+1 == len(a2) {
-			break
-		}
-		n = a2[i+1]
-		if n == v {
-			a2 = remove_element(a2, i+1)
-		}
-	}
-
 	var copy_arr []int
 
-	for j, v := range a2 {
-		if j == len(a2)-1 {
-			if a2[j] != 0 {
+	for i, v := range a2 {
+		if i == len(a2)-1 {
+			if a2[i] != 0 {
 				copy_arr = append(copy_arr, v)
 			}
 		}
-		if j+1 < len(a2) {
-			if v != a2[j+1] {
-				if a2[j] != 0 {
+		if i+1 < len(a2) {
+			if v != a2[i+1] {
+				if a2[i] != 0 {
 					copy_arr = append(copy_arr, v)
 				}
 			}
