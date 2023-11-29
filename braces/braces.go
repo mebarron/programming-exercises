@@ -1,4 +1,4 @@
-package main 
+package main
 
 import (
 	"fmt"
@@ -9,59 +9,51 @@ func check(s string) bool {
 	rrunes := []rune{')', ']', '}'}
 
 	var runesets [][]rune
-	var results []bool
+	result := false
 
-	l := len(s) 
+	l := len(s)
 
-	for i:=0;i<l;i++ {
+	for i := 0; i < l; i += 2 {
 		if i >= l {
 			break
 		}
 
-		var runeset []rune 
-		runeset = append(runeset, rune(s[i])) 
+		var runeset []rune
+		runeset = append(runeset, rune(s[i]))
 		runeset = append(runeset, rune(s[i+1]))
 
 		runesets = append(runesets, runeset)
-
-		i += 1
 	}
 
 	for _, runeset := range runesets {
-		for i:=0;i<len(runeset);i++ {
+		for i := 0; i < len(runeset); i++ {
 			if runeset[i] == lrunes[0] {
 				if runeset[i+1] == rrunes[0] {
-					results = append(results, true)
+					result = true
 				} else {
-					results = append(results, false)
+					return false
 				}
 			}
 
 			if runeset[i] == lrunes[1] {
 				if runeset[i+1] == rrunes[1] {
-					results = append(results, true)
+					result = true
 				} else {
-					results = append(results, false)
+					return false
 				}
 			}
 
-			if runeset[i] == lrunes[2] { 
+			if runeset[i] == lrunes[2] {
 				if runeset[i+1] == rrunes[2] {
-					results = append(results, true)
+					result = true
 				} else {
-					results = append(results, false)
+					return false
 				}
 			}
 		}
 	}
 
-	for _, result := range results {
-		if result == false {
-			return false
-		}
-	}
-	
-	return true
+	return result
 }
 
 func main() {
